@@ -2,10 +2,14 @@
 
 package lesson3.task1
 
+<<<<<<< .merge_file_a03800
 import lesson1.task1.sqr
 import ru.spbstu.kotlin.generate.assume.retry
 import kotlin.math.PI
 import kotlin.math.abs
+=======
+
+>>>>>>> .merge_file_a13260
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -78,6 +82,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun digitNumber(n: Int): Int {
+<<<<<<< .merge_file_a03800
     var digitNumber = 0
     var number = n
     do {
@@ -85,6 +90,15 @@ fun digitNumber(n: Int): Int {
         number /= 10
     } while (number != 0)
     return digitNumber
+=======
+    var count = 1
+    var num = n
+    while (num / 10 != 0) {
+        num /= 10
+        count += 1
+    }
+    return count
+>>>>>>> .merge_file_a13260
 }
 
 /**
@@ -94,6 +108,7 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
+<<<<<<< .merge_file_a03800
     var finalResult = 1
     var result = 1
     if (n < 3) return finalResult
@@ -102,6 +117,17 @@ fun fib(n: Int): Int {
         finalResult = result - finalResult
     }
     return finalResult
+=======
+    var first = 0
+    var second = 1
+    for (i in 1..n) {
+        val local = second
+        second += first
+        first = local
+
+    }
+    return first
+>>>>>>> .merge_file_a13260
 }
 
 /**
@@ -110,8 +136,15 @@ fun fib(n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
+<<<<<<< .merge_file_a03800
     for (m in 2..sqrt(n.toDouble()).toInt()) {
         if (n % m == 0) return m
+=======
+    var i = 2
+    while (i * i <= n) {
+        if (n % i == 0) return i
+        i += 1
+>>>>>>> .merge_file_a13260
     }
     return n
 }
@@ -140,6 +173,7 @@ fun maxDivisor(n: Int): Int = n / minDivisor(n)
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
+<<<<<<< .merge_file_a03800
 fun collatzSteps(x: Int): Int {
     var nextDigit = x
     var collatzSteps = 0
@@ -154,6 +188,9 @@ fun collatzSteps(x: Int): Int {
     return collatzSteps
 }
 
+=======
+fun collatzSteps(x: Int): Int = TODO()
+>>>>>>> .merge_file_a13260
 /**
  * Средняя (3 балла)
  *
@@ -171,7 +208,10 @@ fun lcm(m: Int, n: Int): Int = TODO()
  */
 fun isCoPrime(m: Int, n: Int): Boolean = TODO()
 
+<<<<<<< .merge_file_a03800
 
+=======
+>>>>>>> .merge_file_a13260
 /**
  * Средняя (3 балла)
  *
@@ -278,6 +318,7 @@ fun cos(x: Double, eps: Double): Double {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
+<<<<<<< .merge_file_a03800
     var counter = 0
     var digit = 0
     while (counter < n) {
@@ -293,6 +334,21 @@ fun squareSequenceDigit(n: Int): Int {
         }
     }
     return finalDigit % 10
+=======
+    var digits = 0
+    var i = 1
+    while (n > digits) {
+        digits += digitNumber(i * i)
+        i += 1
+    }
+    val last = (i - 1) * (i - 1)
+
+    return if (n == digits) {
+        last % 10
+    } else {
+        (last / 10.0.pow((digits - n).toDouble()) % 10).toInt()
+    }
+>>>>>>> .merge_file_a13260
 }
 
 /**
@@ -305,6 +361,7 @@ fun squareSequenceDigit(n: Int): Int {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int {
+<<<<<<< .merge_file_a03800
     var counter = 0
     var digit = 0
     while (counter < n) {
@@ -325,3 +382,20 @@ fun fibSequenceDigit(n: Int): Int {
 
 
 
+=======
+    var digits = 0
+    var i = 1
+    while (n > digits) {
+        digits += digitNumber(fib(i))
+        i += 1
+    }
+    val last = fib(i - 1)
+
+    return if (n == digits) {
+        last % 10
+    } else {
+        (last / 10.0.pow((digits - n).toDouble()) % 10).toInt()
+    }
+}
+
+>>>>>>> .merge_file_a13260

@@ -72,11 +72,28 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
+<<<<<<< .merge_file_a15276
 fun ageDescription(age: Int): String = when {
     age % 100 in 5..20 -> "$age лет"
     age % 10 in 2..4 -> "$age года"
     age % 10 == 1 -> "$age год"
     else -> "$age лет"
+=======
+fun ageDescription(age: Int): String {
+    if ((age > 0) && (age < 200)) {
+        if ((age % 100 > 10) && (age % 100 < 20)) {
+            return "$age лет"
+        }
+        val digit = age % 10
+        return if ((digit > 1) && (digit < 5)) {
+            "$age года"
+        } else if (digit == 1) {
+            "$age год"
+        } else {
+            "$age лет"
+        }
+    } else return "error"
+>>>>>>> .merge_file_a17864
 }
 
 /**
@@ -160,6 +177,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
+<<<<<<< .merge_file_a15276
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
     b - c >= 0 && c > a && b < d -> b - c
     d - a >= 0 && c < a && b > d -> d - a
@@ -167,3 +185,16 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
     c <= a && b <= d -> b - a
     else -> -1
 }
+=======
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
+    if ((c <= b) && (a <= c) && (b <= d)) {
+        b - c
+    } else if ((a <= d) && (c <= a) && (d <= b)) {
+        d - a
+    } else if ((a <= c) && (b >= d)) {
+        d - c
+    } else if ((c <= a) && (d >= b)) {
+        b - a
+    } else -1
+
+>>>>>>> .merge_file_a17864

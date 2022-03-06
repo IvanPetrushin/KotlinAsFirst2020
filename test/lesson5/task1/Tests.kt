@@ -231,6 +231,13 @@ class Tests {
                 "печенье"
             )
         )
+        assertEquals(
+            "Мария",
+            findCheapestStuff(
+                mapOf("Мария" to ("печенье" to Double.MAX_VALUE), "Орео" to ("печенье" to Double.MAX_VALUE)),
+                "печенье"
+            )
+        )
     }
 
     @Test
@@ -337,6 +344,10 @@ class Tests {
             Pair(1, 2),
             findSumOfTwo(listOf(1, 0, 0, 0), 0)
         )
+        assertEquals(
+            Pair(0, 1),
+            findSumOfTwo(listOf(0, 0, 0, 1), 0)
+        )
     }
 
     @Test
@@ -357,6 +368,7 @@ class Tests {
             )
         )
         assertEquals(
+<<<<<<< .merge_file_a17184
             setOf("Кубок", "Слиток"),
             bagPacking(
                 mapOf("Кубок" to (500 to 2000), "Слиток" to (1000 to 5000)),
@@ -383,5 +395,19 @@ class Tests {
                 0
             )
         )
+=======
+            setOf("Слиток", "Чаша"),
+            bagPacking(
+                mapOf(
+                    "Кубок" to (500 to 2000),
+                    "Слиток" to (1000 to 5000),
+                    "Мешок" to (800 to 3000),
+                    "Чаша" to (500 to 2500)
+                ),
+                1700
+            )
+        )
+
+>>>>>>> .merge_file_a11068
     }
 }

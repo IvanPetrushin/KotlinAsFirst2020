@@ -121,11 +121,15 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
+<<<<<<< .merge_file_a04448
 fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
     for ((key, value) in a) if (value != b[key]) return false
     return true
 }
 
+=======
+fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = a.all { it.value == b[it.key] }
+>>>>>>> .merge_file_a17576
 
 /**
  * Простая (2 балла)
@@ -141,13 +145,20 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  *   subtractOf(a = mutableMapOf("a" to "z"), mapOf("a" to "z"))
  *     -> a changes to mutableMapOf() aka becomes empty
  */
+<<<<<<< .merge_file_a04448
 fun subtractOf(
     a: MutableMap<String, String>,
     b: Map<String, String>
 ): MutableMap<String, String> {
     for ((key, value) in b) if (value == a[key]) a.remove(key)
     return a
+=======
+fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
+    val res = a.filter { it.value == b[it.key] }
+    res.map { a.remove(it.key) }
+>>>>>>> .merge_file_a17576
 }
+
 
 /**
  * Простая (2 балла)
@@ -157,6 +168,7 @@ fun subtractOf(
  * т. е. whoAreInBoth(listOf("Марат", "Семён, "Марат"), listOf("Марат", "Марат")) == listOf("Марат")
  */
 fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
+<<<<<<< .merge_file_a04448
     val result = mutableListOf<String>()
     val a = a.toHashSet().toList()
     val b = b.toHashSet().toList()
@@ -164,6 +176,10 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
         if (a[i] == b[j]) result.add(a[i])
     }
     return result
+=======
+    val bSet = b.toSet()
+    return a.toSet().filter { it in bSet }
+>>>>>>> .merge_file_a17576
 }
 
 /**
@@ -183,11 +199,23 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
+<<<<<<< .merge_file_a04448
 fun mergePhoneBooks(
     mapA: Map<String, String>,
     mapB: Map<String, String>
 ): Map<String, String> = TODO()
 
+=======
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+    var res = mapB + mapA
+    for ((name, number) in res) {
+        if ((number != mapB[name]) && (name in mapB)) {
+            res += name to "$number, ${mapB[name]}"
+        }
+    }
+    return res
+}
+>>>>>>> .merge_file_a17576
 
 /**
  * Средняя (4 балла)
@@ -218,9 +246,21 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
+<<<<<<< .merge_file_a04448
 fun findCheapestStuff(
     stuff: Map<String, Pair<String, Double>>, kind: String
 ): String? = TODO()
+=======
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
+    var chosen = "" to Double.POSITIVE_INFINITY
+    for ((name, pair) in stuff) {
+        if ((pair.first == kind) && (pair.second < chosen.second)) {
+            chosen = name to pair.second
+        }
+    }
+    return if (chosen.second != Double.POSITIVE_INFINITY) chosen.first else null
+}
+>>>>>>> .merge_file_a17576
 
 /**
  * Средняя (3 балла)
@@ -231,7 +271,8 @@ fun findCheapestStuff(
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
+fun canBuildFrom(chars: List<Char>, word: String): Boolean =
+    word.lowercase().toSet().all { letter -> letter in chars.map { it.lowercaseChar() } }
 
 /**
  * Средняя (4 балла)
@@ -246,10 +287,19 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
+<<<<<<< .merge_file_a04448
     val current = list.groupingBy { it }.eachCount()
     val result = mutableMapOf<String, Int>()
     for ((key, value) in current) if (value != 1) result[key] = value
     return result
+=======
+    val repeats = mutableMapOf<String, Int>()
+    for (letter in list.toSet()) {
+        val count = list.count { it == letter }
+        if (count != 1) repeats += letter to count
+    }
+    return repeats
+>>>>>>> .merge_file_a17576
 }
 
 /**
@@ -264,7 +314,13 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean = TODO()
+fun hasAnagrams(words: List<String>): Boolean =
+    words.any { word ->
+        (words.subList(words.indexOf(word) + 1, words.size)).any {
+            (it.length == word.length) && (canBuildFrom(it.toList(), word))
+        }
+    }
+
 
 /**
  * Сложная (5 баллов)
@@ -321,6 +377,7 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+<<<<<<< .merge_file_a04448
     val map = mutableMapOf<Int, Int>()
     for (i in list.indices) {
         if (map[number - list[i]] != null) {
@@ -329,6 +386,14 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
         map[list[i]] = i
     }
     return Pair(-1, -1)
+=======
+    val index = mutableMapOf<Int, Int>()
+    for (i in list.indices) {
+        if (number - list[i] in index) return index[number - list[i]]!! to i
+        index += list[i] to i
+    }
+    return -1 to -1
+>>>>>>> .merge_file_a17576
 }
 
 /**
@@ -352,6 +417,7 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
  *     450
  *   ) -> emptySet()
  */
+<<<<<<< .merge_file_a04448
 fun bagPacking(
     treasures: Map<String, Pair<Int, Int>>,
     capacity: Int
@@ -383,3 +449,20 @@ fun bagPacking(
     }
     return namesOfTresuares[treasures.size][capacity]
 }
+=======
+fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
+/*
+{
+    var bag: Set<String>
+    for (item in treasures) {
+        val cost = item.value.second
+        val weight = item.value.first
+        var current = 0
+        while (weight + current <= capacity) {
+
+        }
+    }
+    return setOf("Кубок")
+}
+*/
+>>>>>>> .merge_file_a17576

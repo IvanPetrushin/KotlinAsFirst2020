@@ -122,7 +122,11 @@ fun buildSumExample(list: List<Int>) =
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
+<<<<<<< .merge_file_a18800
 fun abs(v: List<Double>): Double = sqrt(v.map { it * it }.sum())
+=======
+fun abs(v: List<Double>): Double = sqrt(v.sumOf { it * it })
+>>>>>>> .merge_file_a08392
 
 /**
  * Простая (2 балла)
@@ -250,6 +254,7 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
+<<<<<<< .merge_file_a18800
 
 fun roman(n: Int): String {
     val romanDigitsTo10 = listOf(
@@ -267,6 +272,14 @@ fun roman(n: Int): String {
     val romanDigitsTo10000 = listOf("", "M", "MM", "MMM")
     return romanDigitsTo10000[n / 1000] + romanDigitsTo1000[n / 100 % 10] +
             romanDigitsTo100[n % 100 / 10] + romanDigitsTo10[n % 10]
+=======
+fun roman(n: Int): String {
+    val one = listOf("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
+    val ten = listOf("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
+    val hun = listOf("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
+    val tho = listOf("", "M", "MM", "MMM")
+    return tho[n / 1000] + hun[n / 100 % 10] + ten[n / 10 % 10] + one[n % 10]
+>>>>>>> .merge_file_a08392
 }
 
 /**
@@ -276,6 +289,7 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
+<<<<<<< .merge_file_a18800
 
 
 fun russian(n: Int): String {
@@ -336,4 +350,89 @@ fun russian(n: Int): String {
         }
     }
     return result.joinToString(" ")
+=======
+fun russian(n: Int): String {
+    val wordThousand = listOf("тысяча ", "тысячи ", "тысяч ")
+    val exceptions = listOf(
+        "",
+        "одиннадцать ",
+        "двенадцать ",
+        "тринадцать ",
+        "четырнадцать ",
+        "пятнадцать ",
+        "шестнадцать ",
+        "семнадцать ",
+        "восемнадцать ",
+        "девятнадцать "
+    )
+    val thousand = listOf(
+        "",
+        "одна ",
+        "две ",
+        "три ",
+        "четыре ",
+        "пять ",
+        "шесть ",
+        "семь ",
+        "восемь ",
+        "девять "
+    )
+    val one = listOf(
+        "",
+        "один",
+        "два",
+        "три",
+        "четыре",
+        "пять",
+        "шесть",
+        "семь",
+        "восемь",
+        "девять"
+    )
+    val ten = listOf(
+        "",
+        "десять ",
+        "двадцать ",
+        "тридцать ",
+        "сорок ",
+        "пятьдесят ",
+        "шестьдесят ",
+        "семьдесят ",
+        "восемьдесят ",
+        "девяносто "
+    )
+    val hundred = listOf(
+        "",
+        "сто ",
+        "двести ",
+        "триста ",
+        "четыреста ",
+        "пятьсот ",
+        "шестьсот ",
+        "семьсот ",
+        "восемьсот ",
+        "девятьсот "
+    )
+
+    return buildString {
+        if (n > 1000) {
+            append(hundred[n / 100000])
+            if (n / 1000 % 100 in 11..19) {
+                append(exceptions[n / 1000 % 10], wordThousand[2])
+            } else {
+                append(ten[n / 10000 % 10], thousand[n / 1000 % 10])
+                when (n / 1000 % 10) {
+                    1 -> append(wordThousand[0])
+                    in 2..4 -> append(wordThousand[1])
+                    else -> append(wordThousand[2])
+                }
+            }
+        }
+        if (n % 100 in 11..19) {
+            append(hundred[n / 100 % 10], exceptions[n % 10])
+        } else {
+            append(hundred[n / 100 % 10], ten[n / 10 % 10], one[n % 10])
+        }
+    }.trim()
+>>>>>>> .merge_file_a08392
 }
